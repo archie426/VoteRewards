@@ -5,6 +5,7 @@ using VoteRewards.API;
 
 namespace VoteRewards.Commands
 {
+    //TODO: Add voting link
     public class CVote : UnturnedCommand
     {
         public CVote(IServiceProvider serviceProvider, IUnturnedVotingClient voting) : base(serviceProvider)
