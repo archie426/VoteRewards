@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using OpenMod.API.Ioc;
@@ -47,16 +45,14 @@ namespace VoteRewards.API
         
         public async Task AddUnturnedServersNet(string apiKey)
         {
-            if (_type == ClientType.UnturnedSl) 
-                _type = ClientType.Both;
-            
+            _type = _type == ClientType.UnturnedSl ? ClientType.Both : ClientType.UnturnedServers;
+
             _apiKeys[0] = new ApiKey(apiKey, ClientType.UnturnedServers);
         }
 
         public async Task AddUnturnedSl(string apiKey)
         {
-            if (_type == ClientType.UnturnedServers)
-                _type = ClientType.Both;
+            _type = _type == ClientType.UnturnedServers ? ClientType.Both : ClientType.UnturnedSl;
             _apiKeys[1] = new ApiKey(apiKey, ClientType.UnturnedSl);
         }
 
