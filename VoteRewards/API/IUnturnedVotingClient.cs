@@ -18,5 +18,6 @@ namespace VoteRewards.API
 
         Task<PlayerSetVoteRequest> SetPlayerVote(ClientType type, string steamId);
         Task<PlayerSetVoteRequest> SetPlayerVote(ClientType type, UnturnedUser user);
+        
     }
 }

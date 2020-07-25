@@ -2,3 +2,10 @@ voterewards:
   keys:  
      unturnedServersApiKey: insert key
      unturnedSlApiKey: insert key
+  rewards:
+    - type: RewardType.Permission
+      apiType: ClientType.Both
+      name: mypermission.ok
+      
+      
+    

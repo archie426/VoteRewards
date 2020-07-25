@@ -2,12 +2,14 @@ using System;
 using Cysharp.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
+using OpenMod.API.Users;
 using OpenMod.Unturned.Commands;
 using OpenMod.Unturned.Users;
 using VoteRewards.API;
 using VoteRewards.API.Collections;
 using VoteRewards.API.Extensions;
 using VoteRewards.API.Requests;
+using VoteRewards.Rewarding;
 
 namespace VoteRewards.Commands
 {
@@ -15,13 +17,14 @@ namespace VoteRewards.Commands
     {
 
         private readonly IUnturnedVotingClient _voting;
-        private readonly IConfiguration _config;
         private readonly IStringLocalizer _localizer;
+        private readonly IRewardService _rewardService;
         
-        public CReward(IServiceProvider serviceProvider, IUnturnedVotingClient voting, IConfiguration config, IStringLocalizer localizer) : base(serviceProvider)
+        
+        public CReward(IServiceProvider serviceProvider, IUnturnedVotingClient voting, IConfiguration config, IStringLocalizer localizer, IRewardService rewards) : base(serviceProvider)
         {
             _voting = voting;
-            _config = config;
+            _rewardService = rewards;
             _localizer = localizer;
         }
 
@@ -34,7 +37,7 @@ namespace VoteRewards.Commands
                 if (request.HasVoted && !request.HasClaimed)
                 {
                     await Context.Actor.PrintMessageAsync(_localizer[$"voting:rewards:hasVoted:{type.String()}"]);
-                    //Add stuff here
+                    await _rewardService.GiveReward(Context.Actor as IUser);
                 }
             }
         }
