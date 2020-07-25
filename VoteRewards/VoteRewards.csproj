@@ -13,6 +13,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="translations.yaml" />
+        <EmbeddedResource Include="config.yaml" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\Assembly-CSharp.dll</HintPath>
       </Reference>

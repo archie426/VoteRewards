@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using OpenMod.API.Ioc;
 using OpenMod.Unturned.Users;
 using VoteRewards.API.Authentication;
+using VoteRewards.API.Collections;
 using VoteRewards.API.Requests;
 
 namespace VoteRewards.API
@@ -59,15 +60,15 @@ namespace VoteRewards.API
             _apiKeys[1] = new ApiKey(apiKey, ClientType.UnturnedSl);
         }
 
-        public async Task<List<PlayerGetVoteRequest>> GetPlayerVotes(UnturnedUser user)
+        public async Task<PlayerVotes> GetPlayerVotes(UnturnedUser user)
         {
             return await GetPlayerVotes(user.SteamId.ToString());
         }
 
-        public async Task<List<PlayerGetVoteRequest>> GetPlayerVotes(string steamId)
+        public async Task<PlayerVotes> GetPlayerVotes(string steamId)
         {
             
-            List<PlayerGetVoteRequest> requests = new List<PlayerGetVoteRequest>();
+            PlayerVotes requests = new PlayerVotes();
             
             if (_type == ClientType.UnturnedServers || _type == ClientType.Both)
             {
@@ -75,7 +76,7 @@ namespace VoteRewards.API
                 bool worked = int.TryParse(result, out int endCode);
                 if (!worked)
                     endCode = 0;
-                PlayerGetVoteRequest request = new PlayerGetVoteRequest(steamId, endCode);
+                PlayerGetVoteRequest request = new PlayerGetVoteRequest(steamId, endCode, ClientType.UnturnedServers);
                 requests.Add(request);
             }
             
@@ -85,7 +86,7 @@ namespace VoteRewards.API
                 bool worked = int.TryParse(result, out int endCode);
                 if (!worked)
                     endCode = 0;
-                PlayerGetVoteRequest request = new PlayerGetVoteRequest(steamId, endCode);
+                PlayerGetVoteRequest request = new PlayerGetVoteRequest(steamId, endCode, ClientType.UnturnedSl);
                 requests.Add(request);
             }
 

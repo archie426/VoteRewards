@@ -1,3 +1,4 @@
+using System;
 using OpenMod.API.Users;
 
 namespace VoteRewards.API.Requests
@@ -10,14 +11,24 @@ namespace VoteRewards.API.Requests
 
         public bool HasClaimed => EndCode == 2;
         
+        public ClientType Type { get; }
+        
+        public string Guid { get; }
+        
         public string SteamId { get; }
         public int EndCode { get; }
 
-        public PlayerGetVoteRequest(string steamId, int endCode)
+        public PlayerGetVoteRequest(string steamId, int endCode, ClientType type)
         {
             SteamId = steamId;
             EndCode = endCode;
+            Type = type;
+            Guid = new Guid().ToString();
         }
 
+        public override bool Equals(object? obj)
+        {
+           return ((PlayerGetVoteRequest) obj).Guid == Guid;
+        }
     }
 }

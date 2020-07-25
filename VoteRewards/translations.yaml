@@ -1,0 +1,6 @@
+voting:
+  rewards:
+    hasVoted:
+      unturnedServersNet: You received a reward for voting on unturnedservers.net
+      unturnedSl: You received a reward for voting on unturnedsl.com
+  
